@@ -1,0 +1,11 @@
+{
+    "name": "AWS Examples",
+    "image": "mcr.microsoft.com/vscode/devcontainers/base:ubuntu",
+    "postCreateCommand": "source /workspaces/AWS-Examples/.devcontainer/setup-env.sh",
+    "customizations": {
+        "vscode": {
+            "settings": {},
+            "extensions": []
+        }
+    }
+}
