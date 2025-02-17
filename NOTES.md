@@ -46,3 +46,20 @@ $ env | grep AWS-Example
 PWD=/workspaces/AWS-Examples
 GITHUB_REPOSITORY=el132448/AWS-Examples
 CODESPACE_VSCODE_FOLDER=/workspaces/AWS-Examples
+
+View Creation Log
+Rebuild Container
+
+
+## s3 bucket
+-- cp
+aws s3 cp <source> <destination>
+-- Copy from S3 to local (Download)
+aws s3 cp s3://my-bucket/data.txt .
+aws s3api get-object --bucket my-bucket --key data.txt local-data.txt
+-- Copy from local to S3 (Upload)
+aws s3 cp myfile.txt s3://my-bucket/
+aws s3api put-object --bucket my-bucket --key myfile.txt --body myfile.txt
+-- list object
+aws s3api list-objects --bucket my-example-bucket-el
+aws s3api list-objects --bucket my-example-bucket-el --query Contents

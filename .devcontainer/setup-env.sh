@@ -18,6 +18,6 @@ cd $CODESPACE_VSCODE_FOLDER
 # Verify installation
 # aws sts get-caller-identity
 # aws s3 ls
-# $ aws --version
+# aws --version
 
 echo "Environment setup complete."
