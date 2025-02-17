@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# Check if the first argument is provided
+if [ -z "$1" ]; then
+  echo "Please provide the bucket name as the first argument"
+  exit 1
+fi
+
+aws s3api create-bucket --bucket $1 --create-bucket-configuration LocationConstraint=ap-northeast-1
+
+# input example:
+# ./s3/bash-scripts/create-bucket my-new-bucket-el
