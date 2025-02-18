@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+echo "Creating bucket..."
 
 # Check if the first argument is provided
 if [ -z "$1" ]; then
@@ -6,7 +7,20 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
-aws s3api create-bucket --bucket $1 --create-bucket-configuration LocationConstraint=ap-northeast-1
+BUCKET_NAME="$1"
+
+# Create the S3 bucket
+if aws s3api create-bucket \
+    --bucket "$BUCKET_NAME" \
+    --create-bucket-configuration LocationConstraint=ap-northeast-1 \
+    --query 'Location' \
+    --output text \
+    ; then
+  echo "Bucket '$BUCKET_NAME' created successfully."
+else
+  echo "Failed to create bucket '$BUCKET_NAME'."
+  exit 1
+fi
 
 # input example:
 # ./s3/bash-scripts/create-bucket my-new-bucket-el

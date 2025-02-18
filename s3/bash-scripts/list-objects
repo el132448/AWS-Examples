@@ -1,1 +1,31 @@
 #!/usr/bin/env bash
+echo "Listing objects..."
+
+# Check if the first argument is provided
+if [ -z "$1" ]; then
+  echo "Please provide the bucket name as the first argument"
+  exit 1
+fi
+
+BUCKET_NAME="$1"
+
+# List the objects in the S3 bucket
+if aws s3api list-objects-v2 \
+    --bucket "$BUCKET_NAME" \
+    --query 'Contents[].[Key,Size,LastModified]' \
+    --output text | \
+    sort -k3,3r | \
+    while read -r key size date; do
+        printf "%-50s  Size: %8.2f MB  Last Modified: %s\n" \
+            "$key" \
+            "$(echo "$size/1048576" | bc -l)" \
+            "$date"
+    done; then
+  echo "Bucket '$BUCKET_NAME' listed successfully."
+else
+  echo "Failed to list bucket '$BUCKET_NAME'."
+  exit 1
+fi
+
+# input example:
+# ./s3/bash-scripts/list-objects my-new-bucket-el

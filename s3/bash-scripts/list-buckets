@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+echo "Listing buckets..."
+
+# List all buckets with their creation dates
+if aws s3api list-buckets \
+    --query 'Buckets[].[Name,CreationDate]' \
+    --output text | \
+    sort -k2,2r | \
+    while read -r name date; do
+        printf "%-40s  Created: %s\n" \
+            "$name" \
+            "$date"
+    done; then
+    echo "Buckets listed successfully."
+else
+    echo "Failed to list buckets."
+    exit 1
+fi
+
+# input example:
+# ./s3/bash-scripts/list-buckets 

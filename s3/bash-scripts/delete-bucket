@@ -1,1 +1,23 @@
 #!/usr/bin/env bash
+echo "Deleting bucket..."
+
+# Check if the first argument is provided
+if [ -z "$1" ]; then
+  echo "Please provide the bucket name as the first argument"
+  exit 1
+fi
+
+BUCKET_NAME="$1"
+
+# Delete the S3 bucket
+if aws s3api delete-bucket \
+    --bucket "$BUCKET_NAME" \
+    ; then
+  echo "Bucket '$BUCKET_NAME' deleted successfully."
+else
+  echo "Failed to delete bucket '$BUCKET_NAME'."
+  exit 1
+fi
+
+# input example:
+# ./s3/bash-scripts/delete-bucket my-new-bucket-el
